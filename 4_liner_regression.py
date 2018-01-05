@@ -2,7 +2,7 @@ import tensorflow as tf
 #X,Y data
 x_train = [1, 2, 3]
 y_train = [1, 2, 3]
-
+#Trainable Variable(It is a Variable that Tensorflow use)
 w = tf.Variable(tf.random_normal([1]), name = 'weight')
 b = tf.Variable(tf.random_normal([1]), name = 'bias')
 #hypothesis X*W+B
