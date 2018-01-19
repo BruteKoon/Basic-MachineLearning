@@ -36,7 +36,7 @@ and then do the Project about acustic node`
 
 ***********************************
 "Code"
-1.~ : machine learning tutorial
-//
-p1 ~ : practice to use tensor efficiently just coding in Internet
-
+-1.~ : machine learning tutorial
+-//
+-p1 ~ : practice to use tensor efficiently just coding in Internet
+-t1 ~ : tensorflow tutorial
