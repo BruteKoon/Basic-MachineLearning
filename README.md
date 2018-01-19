@@ -29,3 +29,13 @@ and then do the Project about acustic node`
 - "export TF_BINARY_URL = ???"
 
 8. sudo pip install --upgrade $TF_BINARY_URL
+
+
+
+
+
+***********************************
+"Code"
+1.~ : machine learning tutorial
+p1 ~ : practice to use tensor efficiently just coding in Internet
+
