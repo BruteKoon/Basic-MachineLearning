@@ -19,10 +19,7 @@ for i in range(1):
 	print (random_array)
 
 
-
-
-'''
-f, t, S = signal.stft(text_array[1], fs, window = 'hamm', nperseg=256, nfft = 1024)
+f, t, S = signal.stft(random_array, fs, window = 'hamm', nperseg=256, nfft = 1024)
 S = np.abs(S)
 S = 20*np.log10(S + 1e-6)
 
@@ -37,7 +34,6 @@ plt.xlabel('Time [sec]')
 plt.show()
 
 print(S_norm.shape)
-'''
 
 
 
