@@ -15,7 +15,7 @@ data_per_time_slice = int(fs * time_slice)
 
 # hyper parameters
 learning_rate = 0.001
-training_epochs = 15
+training_epochs = 5
 batch_size = 10
 one = np.ones((batch_size, 1))
 zero = np.zeros((batch_size, 1))
@@ -123,6 +123,60 @@ for epoch in range(training_epochs):
 print('Learning Finished!')
 
 # Test model and check accuracy
+##########################################################################
+#test variable 
+batch_size = 1
+one = np.ones((batch_size, 1))
+zero = np.zeros((batch_size, 1))
+test_y_batch = np.array([], dtype=np.int64).reshape(0,3)
+test_set = np.array([], dtype=np.int64).reshape(0,441856)
+
+
+#test set
+filenames = glob.glob(path)   
+for filename in filenames:
+    print(filename)
+    # "txt" -> array
+    text_array = np.loadtxt(filename)
+    text_array = np.transpose(text_array)
+############ make y test set ###########################################
+    if(filename.upper().find("UNLOADED")>-1):
+        y_batch = np.hstack((zero, one, zero))
+    elif(filename.upper().find("LOADED")>-1):
+        y_batch = np.hstack((zero, zero, one))
+    else:
+        y_batch = np.hstack((one, zero, zero))
+   
+    test_y_batch = np.vstack((test_y_batch, y_batch))
+############################################################################
+
+####################### make x test set ################################
+# for loop ################################################################
+    for i in range(batch_size):
+        # select random number
+        # print(data_per_time_slice)
+        rand_num = random.randrange(0, text_array[1].shape[0] - data_per_time_slice)
+        # make a random_array
+        random_array = text_array[2][rand_num:rand_num + data_per_time_slice]
+
+        # view graph
+        f, t, S = signal.stft(random_array, fs, window='hamm', nperseg=512, nfft=1023)
+        S = np.abs(S)
+        S = 20 * np.log10(S + 1e-6)
+
+        maximum = max(max(S.reshape([1, -1])))
+        minimum = min(min(S.reshape([1, -1])))
+        S_norm = (S - minimum) / (maximum - minimum)
+        
+        # print(S_norm.shape)
+        # data_set.append(S_norm.reshape(-1))
+        test_set = np.vstack((test_set, S_norm.reshape(-1)))
+###############################################################################
+
+
+
+##########################################################################
+
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(Y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print('Accuracy:', sess.run(accuracy, feed_dict={X: data_set, Y: total_y_batch}))
+print('Accuracy:', sess.run(accuracy, feed_dict={X: test_set, Y: test_y_batch}))
