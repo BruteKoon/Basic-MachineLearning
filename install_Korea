@@ -1,0 +1,32 @@
+#파이썬 알아서 설치
+#아나 콘다 다운
+wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
+#아나 콘다 설치
+bash Anaconda3-5.0.1-Linux-x86_64.sh
+
+*Do you approve the license terms? 에서 yes
+*/home/ubunut/anaconda3 >>> 에서 엔터
+*do you wish the installer... PATH IN your /home/ubuntu/bashrc? 에서 yes
+*나머지 그냥 엔터
+
+#경로 설정
+export PATH = "/root/anaconda3/bin:$PATH"
+아니면 export PATH = "/아나콘다 경로/bin:$PATH"
+
+#아나콘다 공간 만들기
+conda create -n tensorflow python=3.5(자기 파이썬 버전으로)
+
+#공간 확인
+source activate tensorflow(공간 활성ㅏ) 하면
+(tensorflow)$ 이 보인다.
+
+# 텐서플로우 바이너리 선택 (위에 공간 확인 으로 프롬프트 바뀐 상태로 해야함)
+(tensorflow)$ export TF_BINARY_URL= https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.4.1-cp35-cp35m-linux_x86_64.whl(python 3.5버전)
+
+*다른 버전이면 자기버전에 맞는거 찾아야함
+
+#텐서플로우 설치
+(tensorflow)$ pip3 install --upgrade $TF_BINARY_URL
+
+#공간 비 활성화
+source deactivate tensorflow
